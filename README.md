@@ -16,7 +16,7 @@ Follow these steps to get started with Mjolnir:
 
 1. **Clone the Repository**: Clone the project repository to your local machine:
    ```bash
-   git clone https://github.com/your-username/mjolnir.git
+   git clone https://github.com/Fhasaj/Mjolnir.git
    ```
 
 2. **Install Dependencies**: Make sure to install all necessary dependencies. Detailed instructions can be found in the README file of the repository.
