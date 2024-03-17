@@ -7,12 +7,13 @@ find_package(wxWidgets REQUIRED COMPONENTS core base)
 include(${wxWidgets_USE_FILE})
 
 # Source files
-set(SOURCE_FILES
-    Sources/main.cpp
+file(GLOB SOURCES
+    Headers/*.h
+    Sources/*.cpp
 )
 
 # Add executable
-add_executable(Mjolnir ${SOURCE_FILES})
+add_executable(Mjolnir ${SOURCES})
 
 # Include headers
 target_include_directories(Mjolnir PRIVATE ${wxWidgets_INCLUDE_DIRS})

@@ -99,11 +99,11 @@
         }
     ],
     "buildPresets": [
-        {
-            "name": "Windows Studio 2022 Debug",
-            "description": "",
-            "displayName": "",
-            "configurePreset": "x64-debug"
-        }
+      {
+        "name": "x64-debug",
+        "description": "",
+        "displayName": "",
+        "configurePreset": "x64-debug"
+      }
     ]
 }
