@@ -13,7 +13,8 @@ file(GLOB SOURCES
 )
 
 # Add executable
-add_executable(Mjolnir ${SOURCES})
+add_executable(Mjolnir ${SOURCES}
+        Headers/SecondWindow.cpp)
 
 # Include headers
 target_include_directories(Mjolnir PRIVATE ${wxWidgets_INCLUDE_DIRS})
