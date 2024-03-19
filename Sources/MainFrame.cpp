@@ -69,25 +69,51 @@ MainFrame::MainFrame(const wxString& title, const wxPoint& pos, const wxSize& si
 
 	topSizer->AddSpacer(30);
 
+	//USERNAME TEXT CONTROL
+
+	// Create a panel for the background
+	wxPanel* backgroundPanel = new wxPanel(panel_top, wxID_ANY, wxDefaultPosition, wxSize(-1, 40));
+	backgroundPanel->SetBackgroundColour(wxColour(49, 54, 63));
+
+	// Add the text control to the background panel
+	wxBoxSizer* backgroundSizer = new wxBoxSizer(wxVERTICAL);
+
+	// Add the background panel to the sizer
+	topSizer->Add(backgroundPanel, 0, wxEXPAND | wxBOTTOM, 10);
+
 	// Create Username text control
-	Username_txt = new wxTextCtrl(panel_top, wxID_ANY, "Username", wxDefaultPosition, wxSize(0, 40), wxEXPAND | wxBORDER_NONE );
-	topSizer->Add(Username_txt, 0, wxEXPAND | wxBOTTOM, 10);
+	Username_txt = new wxTextCtrl(backgroundPanel, wxID_ANY, "Enter your username", wxDefaultPosition, wxDefaultSize, wxLEFT | wxBORDER_NONE);
 	Username_txt->SetFont(MainFont);
 	Username_txt->SetBackgroundColour(wxColour(49, 54, 63)); // Set the background color of the text box
 	Username_txt->SetForegroundColour(wxColour(238, 238, 238)); // Set the text color of the text box
+	Username_txt->SetMargins(10); // Set the margins of the text box
+
+	backgroundSizer->AddSpacer(12);
+	backgroundSizer->Add(Username_txt, 0, wxEXPAND | wxALL, 0);
+	backgroundPanel->SetSizer(backgroundSizer);
+
+
+	//PASSWORD TEXT CONTROL	
 
 	// Create a horizontal box sizer for the password text box and the buttons
 	passwordAndButtonSizer = new wxBoxSizer(wxHORIZONTAL);
 
 	// Create Password text control
-	 Password_txt = new wxTextCtrl(panel_top, wxID_ANY, "Password", wxDefaultPosition, wxDefaultSize, wxTE_PASSWORD | wxEXPAND | wxBORDER_NONE);
+	Password_txt = new wxTextCtrl(panel_top, wxID_ANY, "Password", wxDefaultPosition, wxDefaultSize, wxTE_PASSWORD | wxEXPAND | wxBORDER_NONE);
 	passwordAndButtonSizer->Add(Password_txt, 1, wxEXPAND | wxLEFT | wxBOTTOM);
 	Password_txt->SetFont(MainFont);
 	Password_txt->SetBackgroundColour(wxColour(49, 54, 63)); // Set the background color of the text box
 	Password_txt->SetForegroundColour(wxColour(238, 238, 238)); // Set the text color of the text box
 
+
+
+
 	// Create a spacer to add some space between the password text box and the buttons
 	passwordAndButtonSizer->AddSpacer(5);
+
+
+
+
 
 	// Load images for different button states
 #if defined(__WXMSW__)
