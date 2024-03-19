@@ -43,7 +43,5 @@ private:
     /****** This logic weill be on the backend server to make sure that I have access to log into the system. **********/
     void OnOpenNewWindow(wxCommandEvent& event);
     void OnNewWindowClosed(wxCloseEvent& event);
-    void OnButtonFocus(wxFocusEvent& event);
-    void OnButtonBlur(wxFocusEvent& event);
     void onButtonClick(wxCommandEvent& event);
 };

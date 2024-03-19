@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Name: MainFrame.cpp
  * Author: Fatlum Hasaj
  * Date: 15/3/24
@@ -69,73 +69,101 @@ MainFrame::MainFrame(const wxString& title, const wxPoint& pos, const wxSize& si
 
 	topSizer->AddSpacer(30);
 
-	//USERNAME TEXT CONTROL
+	/********  USERNAME Text Control *************/
 
 	// Create a panel for the background
-	wxPanel* backgroundPanel = new wxPanel(panel_top, wxID_ANY, wxDefaultPosition, wxSize(-1, 40));
+	wxPanel* backgroundPanel = new wxPanel(panel_top, wxID_ANY, wxDefaultPosition, wxSize(-1, 40)); // Adjust the height as needed
 	backgroundPanel->SetBackgroundColour(wxColour(49, 54, 63));
 
 	// Add the text control to the background panel
 	wxBoxSizer* backgroundSizer = new wxBoxSizer(wxVERTICAL);
 
-	// Add the background panel to the sizer
-	topSizer->Add(backgroundPanel, 0, wxEXPAND | wxBOTTOM, 10);
+#ifdef __WXMSW__
+	// Windows-specific code
+	// Add a spacer above the text control to push it down
+	backgroundSizer->Add(0, 12, 0); // Add a 10-pixel spacer
+#endif
 
-	// Create Username text control
+	// Create UserName text control
 	Username_txt = new wxTextCtrl(backgroundPanel, wxID_ANY, "Enter your username", wxDefaultPosition, wxDefaultSize, wxEXPAND | wxBORDER_NONE);
 	Username_txt->SetFont(MainFont);
 	Username_txt->SetBackgroundColour(wxColour(49, 54, 63)); // Set the background color of the text box
 	Username_txt->SetForegroundColour(wxColour(238, 238, 238)); // Set the text color of the text box
-	Username_txt->SetMargins(10); // Set the margins of the text box | Does not work on Linux or mac
 
-//	backgroundSizer->AddSpacer(5); //Not needed on Linux
-	backgroundSizer->Add(Username_txt, 1, wxEXPAND | wxLEFT | wxRight, 10);
+#ifdef __WXMSW__
+	// Windows-specific code
+	// Set the size of the text control to be smaller in height than the background panel
+	Username_txt->SetSize(wxDefaultCoord, 30); // Set the height to 30 pixels, less than the panel
+#endif
+
+	// Add the text control to the sizer with padding to center it horizontally
+	backgroundSizer->Add(Username_txt, 0, wxEXPAND | wxLEFT | wxRIGHT, 10);
+
+	// Add the background panel to the top sizer
+	topSizer->Add(backgroundPanel, 0, wxEXPAND | wxBOTTOM, 10);
+
+	// Set the sizer for the background panel
 	backgroundPanel->SetSizer(backgroundSizer);
 
 
+	/*******************************  Password Text Control	******************************************/
 
-/// Create a panel for the password text control and the button
-    wxPanel* passwordPanel = new wxPanel(panel_top, wxID_ANY);
-    passwordPanel->SetBackgroundColour(wxColour(49, 54, 63)); // Set the background color of the panel
+	// Create a panel for the password text control and the button
+	wxPanel* passwordPanel = new wxPanel(panel_top, wxID_ANY, wxDefaultPosition, wxSize(-1, 40));
+	passwordPanel->SetBackgroundColour(wxColour(49, 54, 63));
 
-// Create a horizontal box sizer for the password text box and the button within the panel
-    wxBoxSizer* passwordSizer = new wxBoxSizer(wxHORIZONTAL);
+	// Create a vertical box sizer for the password panel
+	wxBoxSizer* passwordPanelSizer = new wxBoxSizer(wxVERTICAL);
 
-// Create Password text control inside the panel
-    Password_txt = new wxTextCtrl(passwordPanel, wxID_ANY, "Password", wxDefaultPosition, wxDefaultSize, wxTE_PASSWORD | wxEXPAND | wxBORDER_NONE);
-    Password_txt->SetFont(MainFont);
-    Password_txt->SetBackgroundColour(wxColour(49, 54, 63));
-    Password_txt->SetForegroundColour(wxColour(238, 238, 238)); // Set the text color of the text box
-    Password_txt->SetMargins(10); // Set the margins of the text box | Does not work on Linux or macOS
+	// Add a spacer above the password text control to push it down
+	passwordPanelSizer->AddSpacer(12); // Add a 12-pixel spacer
 
-// Load images for different button states
-#if defined(__WXMSW__)
-    // If compiling for Windows, load images from .rc file
-    normalBitmap = wxBitmap(wxT("SHOW_PNG"), wxBITMAP_TYPE_PNG_RESOURCE); // Assume the image is in the .rc file
-    hiddenBitmap = wxBitmap(wxT("HIDDEN_PNG"), wxBITMAP_TYPE_PNG_RESOURCE); // Assume the image is in the .rc file
-#else
-// For other platforms (macOS, Linux), load images from file system
-    normalBitmap = wxBitmap(wxT("../Resources/images/Buttons/eye_white.png"), wxBITMAP_TYPE_PNG);
-    HiddenBitmap = wxBitmap(wxT("../Resources/images/Buttons/hidden_White.png"), wxBITMAP_TYPE_PNG);
-#endif
+	// Create a horizontal box sizer for the password text box and the button within the panel
+	wxBoxSizer* passwordSizer = new wxBoxSizer(wxHORIZONTAL);
 
-// Create the button inside the panel
-    PasswordHider_button = new wxBitmapButton(passwordPanel, wxID_ANY, normalBitmap, wxDefaultPosition, wxSize(40, 40), wxBU_AUTODRAW | wxBORDER_NONE);
-    PasswordHider_button->SetForegroundColour(wxColour(238, 238, 238)); // Set the text color of the button
+	// Create Password text control inside the panel
+	Password_txt = new wxTextCtrl(passwordPanel, wxID_ANY, "Enter your password", wxDefaultPosition, wxDefaultSize, wxTE_PASSWORD | wxEXPAND | wxBORDER_NONE);
+	Password_txt->SetFont(MainFont);
+	Password_txt->SetBackgroundColour(wxColour(49, 54, 63));
+	Password_txt->SetForegroundColour(wxColour(238, 238, 238));
 
-// Add Password text control and button to the horizontal sizer inside the panel
-    passwordSizer->Add(Password_txt, 1, wxEXPAND | wxLEFT | wxRIGHT, 10); // Set proportion to 1
-    passwordSizer->Add(PasswordHider_button, 0, wxALIGN_CENTER_VERTICAL | wxALL, 0);
+	// Add Password text control to the sizer
+	passwordSizer->Add(Password_txt, 1, wxEXPAND | wxLEFT, 10);
 
-// Set the sizer for the panel
-    passwordPanel->SetSizer(passwordSizer);
 
-// Add the panel holding the password text box and button to the vertical sizer
-    topSizer->Add(passwordPanel, 0, wxEXPAND);
+	// Load images for different button states
+	#if defined(__WXMSW__)
+	// If compiling for Windows, load images from .rc file
+		normalBitmap = wxBitmap(wxT("SHOW_WHITE_PNG"), wxBITMAP_TYPE_PNG_RESOURCE);
+		HiddenBitmap = wxBitmap(wxT("HIDDEN_WHITE_PNG"), wxBITMAP_TYPE_PNG_RESOURCE);
+	#else
+	// For other platforms (macOS, Linux), load images from file system
+		normalBitmap = wxBitmap(wxT("../Resources/images/Buttons/eye_white.png"), wxBITMAP_TYPE_PNG);
+		HiddenBitmap = wxBitmap(wxT("../Resources/images/Buttons/hidden_White.png"), wxBITMAP_TYPE_PNG);
+	#endif
 
-// Add the vertical sizer holding all contents to the main panel
-    panel_top->SetSizer(topSizer);
+	// Create the button inside the panel
+	PasswordHider_button = new wxBitmapButton(passwordPanel, wxID_ANY, normalBitmap, wxDefaultPosition, wxSize(40, 40), wxBU_AUTODRAW | wxBORDER_NONE);
+	PasswordHider_button->SetBackgroundColour(wxColour(49, 54, 63));
+	PasswordHider_button->SetForegroundColour(wxColour(238, 238, 238));
 
+	// Add a spacer to adjust the vertical alignment of the button
+	//passwordSizer->AddSpacer(5); // Adjust the value as needed
+
+	// Add Password button to the sizer with right alignment and no bottom margin
+	passwordSizer->Add(PasswordHider_button, 0, wxEXPAND | wxBOTTOM , 10);
+
+	// Add passwordSizer to passwordPanelSizer
+	passwordPanelSizer->Add(passwordSizer, 0, wxEXPAND);
+
+	// Set the sizer for the password panel
+	passwordPanel->SetSizer(passwordPanelSizer);
+
+	// Add the password panel to the main sizer
+	topSizer->Add(passwordPanel, 0, wxEXPAND);
+
+	// Set the main sizer for the main panel
+	panel_top->SetSizer(topSizer);
 
 
     /***************  LOGIN BUTTON **********************/
@@ -186,17 +214,27 @@ void MainFrame::OnNewWindowClosed(wxCloseEvent& event) {
 }
 /*****************************************************************************************************************/
 
-void MainFrame::onButtonClick(wxCommandEvent &event) {
+void MainFrame::onButtonClick(wxCommandEvent& event) {
+#ifdef __WXMSW__
+	// Windows-specific code
+	//This bullshit that windows does is not needed on Linux or macOS so I will not include it. PS: I hate how windows does things sometimes
+	bool hidepwd = isPasswordShowEnabled;
+	HWND hwnd = (HWND)Password_txt->GetHandle();
+	SendMessage(hwnd, EM_SETPASSWORDCHAR, hidepwd ? 0 : 0x25cf, 0); // 0x25cf is ● character
+	Password_txt->Refresh();
+#else
+	// Linux-specific code
+	if (isPasswordShowEnabled) {
+		// Remove the wxTE_PASSWORD style
+		Password_txt->SetWindowStyleFlag(Password_txt->GetWindowStyleFlag() & ~wxTE_PASSWORD);
+	}
+	else {
+		// Add the wxTE_PASSWORD style
+		Password_txt->SetWindowStyleFlag(Password_txt->GetWindowStyleFlag() | wxTE_PASSWORD);
+	}
+#endif
 
-    if (isPasswordShowEnabled) {
-        // Remove the wxTE_PASSWORD style
-        Password_txt->SetWindowStyleFlag(Password_txt->GetWindowStyleFlag() & ~wxTE_PASSWORD);
-        PasswordHider_button->SetBitmap(HiddenBitmap);
-        isPasswordShowEnabled = false;
-    } else {
-        // Add the wxTE_PASSWORD style
-        Password_txt->SetWindowStyleFlag(Password_txt->GetWindowStyleFlag() | wxTE_PASSWORD);
-        PasswordHider_button->SetBitmap(normalBitmap);
-        isPasswordShowEnabled = true;
-    }
+	// Toggle the flag and update the button bitmap
+	isPasswordShowEnabled = !isPasswordShowEnabled;
+	PasswordHider_button->SetBitmap(isPasswordShowEnabled ? normalBitmap : HiddenBitmap);
 }
