@@ -82,14 +82,14 @@ MainFrame::MainFrame(const wxString& title, const wxPoint& pos, const wxSize& si
 	topSizer->Add(backgroundPanel, 0, wxEXPAND | wxBOTTOM, 10);
 
 	// Create Username text control
-	Username_txt = new wxTextCtrl(backgroundPanel, wxID_ANY, "Enter your username", wxDefaultPosition, wxDefaultSize, wxLEFT | wxBORDER_NONE);
+	Username_txt = new wxTextCtrl(backgroundPanel, wxID_ANY, "Enter your username", wxDefaultPosition, wxDefaultSize, wxEXPAND | wxBORDER_NONE);
 	Username_txt->SetFont(MainFont);
 	Username_txt->SetBackgroundColour(wxColour(49, 54, 63)); // Set the background color of the text box
 	Username_txt->SetForegroundColour(wxColour(238, 238, 238)); // Set the text color of the text box
-	Username_txt->SetMargins(10); // Set the margins of the text box
+	Username_txt->SetMargins(10); // Set the margins of the text box | Does not work on Linux or mac
 
-	backgroundSizer->AddSpacer(12);
-	backgroundSizer->Add(Username_txt, 0, wxEXPAND | wxALL, 0);
+//	backgroundSizer->AddSpacer(5); //Not needed on Linux
+	backgroundSizer->Add(Username_txt, 1, wxEXPAND | wxLEFT | wxRight, 10);
 	backgroundPanel->SetSizer(backgroundSizer);
 
 
@@ -107,13 +107,8 @@ MainFrame::MainFrame(const wxString& title, const wxPoint& pos, const wxSize& si
 
 
 
-
 	// Create a spacer to add some space between the password text box and the buttons
 	passwordAndButtonSizer->AddSpacer(5);
-
-
-
-
 
 	// Load images for different button states
 #if defined(__WXMSW__)
@@ -122,7 +117,7 @@ MainFrame::MainFrame(const wxString& title, const wxPoint& pos, const wxSize& si
 	wxBitmap focusedBitmap(wxT("HIDDEN_PNG"), wxBITMAP_TYPE_PNG_RESOURCE); // Assume the image is in the .rc file
 #else
 	// For other platforms (macOS, Linux), load images from file system
-	wxBitmap normalBitmap(wxT("../Resources/images/Buttons/eye.bmp"), wxBITMAP_TYPE_BMP);
+	wxBitmap normalBitmap(wxT("../Resources/images/Buttons/eye.png"), wxBITMAP_TYPE_PNG);
 	wxBitmap focusedBitmap(wxT("../Resources/images/Buttons/hidden.png"), wxBITMAP_TYPE_PNG);
 #endif
 
