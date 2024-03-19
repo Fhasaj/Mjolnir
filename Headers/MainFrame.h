@@ -20,11 +20,12 @@ public:
 
 private:
 
-
     wxPanel* mainPanel;
     wxBoxSizer* vbox;
     wxPanel* panel_top;
     wxBoxSizer* topSizer;
+    wxPanel* backgroundPanelPassword;
+    wxBoxSizer* backgroundSizerPassword;
 
     wxStaticBitmap* imageControl;
     wxTextCtrl* Username_txt;
@@ -33,9 +34,16 @@ private:
     wxBitmapButton* PasswordHider_button;
     wxButton* Login_button;
 
+    //Images
+    wxBitmap normalBitmap;
+    wxBitmap HiddenBitmap;
+
+    bool isPasswordShowEnabled = true;
+
     /****** This logic weill be on the backend server to make sure that I have access to log into the system. **********/
     void OnOpenNewWindow(wxCommandEvent& event);
     void OnNewWindowClosed(wxCloseEvent& event);
     void OnButtonFocus(wxFocusEvent& event);
     void OnButtonBlur(wxFocusEvent& event);
+    void onButtonClick(wxCommandEvent& event);
 };

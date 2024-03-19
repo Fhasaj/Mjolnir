@@ -93,51 +93,60 @@ MainFrame::MainFrame(const wxString& title, const wxPoint& pos, const wxSize& si
 	backgroundPanel->SetSizer(backgroundSizer);
 
 
-	//PASSWORD TEXT CONTROL	
 
-	// Create a horizontal box sizer for the password text box and the buttons
-	passwordAndButtonSizer = new wxBoxSizer(wxHORIZONTAL);
+/// Create a panel for the password text control and the button
+    wxPanel* passwordPanel = new wxPanel(panel_top, wxID_ANY);
+    passwordPanel->SetBackgroundColour(wxColour(49, 54, 63)); // Set the background color of the panel
 
-	// Create Password text control
-	Password_txt = new wxTextCtrl(panel_top, wxID_ANY, "Password", wxDefaultPosition, wxDefaultSize, wxTE_PASSWORD | wxEXPAND | wxBORDER_NONE);
-	passwordAndButtonSizer->Add(Password_txt, 1, wxEXPAND | wxLEFT | wxBOTTOM);
-	Password_txt->SetFont(MainFont);
-	Password_txt->SetBackgroundColour(wxColour(49, 54, 63)); // Set the background color of the text box
-	Password_txt->SetForegroundColour(wxColour(238, 238, 238)); // Set the text color of the text box
+// Create a horizontal box sizer for the password text box and the button within the panel
+    wxBoxSizer* passwordSizer = new wxBoxSizer(wxHORIZONTAL);
 
+// Create Password text control inside the panel
+    Password_txt = new wxTextCtrl(passwordPanel, wxID_ANY, "Password", wxDefaultPosition, wxDefaultSize, wxTE_PASSWORD | wxEXPAND | wxBORDER_NONE);
+    Password_txt->SetFont(MainFont);
+    Password_txt->SetBackgroundColour(wxColour(49, 54, 63));
+    Password_txt->SetForegroundColour(wxColour(238, 238, 238)); // Set the text color of the text box
+    Password_txt->SetMargins(10); // Set the margins of the text box | Does not work on Linux or macOS
 
-
-	// Create a spacer to add some space between the password text box and the buttons
-	passwordAndButtonSizer->AddSpacer(5);
-
-	// Load images for different button states
+// Load images for different button states
 #if defined(__WXMSW__)
-	// If compiling for Windows, load images from .rc file
-	wxBitmap normalBitmap(wxT("SHOW_PNG"), wxBITMAP_TYPE_PNG_RESOURCE); // Assume the image is in the .rc file
-	wxBitmap focusedBitmap(wxT("HIDDEN_PNG"), wxBITMAP_TYPE_PNG_RESOURCE); // Assume the image is in the .rc file
+    // If compiling for Windows, load images from .rc file
+    normalBitmap = wxBitmap(wxT("SHOW_PNG"), wxBITMAP_TYPE_PNG_RESOURCE); // Assume the image is in the .rc file
+    hiddenBitmap = wxBitmap(wxT("HIDDEN_PNG"), wxBITMAP_TYPE_PNG_RESOURCE); // Assume the image is in the .rc file
 #else
-	// For other platforms (macOS, Linux), load images from file system
-	wxBitmap normalBitmap(wxT("../Resources/images/Buttons/eye.png"), wxBITMAP_TYPE_PNG);
-	wxBitmap focusedBitmap(wxT("../Resources/images/Buttons/hidden.png"), wxBITMAP_TYPE_PNG);
+// For other platforms (macOS, Linux), load images from file system
+    normalBitmap = wxBitmap(wxT("../Resources/images/Buttons/eye_white.png"), wxBITMAP_TYPE_PNG);
+    HiddenBitmap = wxBitmap(wxT("../Resources/images/Buttons/hidden_White.png"), wxBITMAP_TYPE_PNG);
 #endif
 
-	// Create another button next to the login button
-	PasswordHider_button = new wxBitmapButton(panel_top, wxID_ANY, normalBitmap, wxDefaultPosition, wxSize(40, 40), wxBU_AUTODRAW | wxBORDER_NONE);
-	passwordAndButtonSizer->Add(PasswordHider_button, 0, wxALIGN_CENTER_VERTICAL | wxALL, 0);
-	PasswordHider_button->SetBackgroundColour(wxColour(49, 54, 63)); // Set the background color of the button
-	PasswordHider_button->SetForegroundColour(wxColour(238, 238, 238)); // Set the text color of the button
+// Create the button inside the panel
+    PasswordHider_button = new wxBitmapButton(passwordPanel, wxID_ANY, normalBitmap, wxDefaultPosition, wxSize(40, 40), wxBU_AUTODRAW | wxBORDER_NONE);
+    PasswordHider_button->SetForegroundColour(wxColour(238, 238, 238)); // Set the text color of the button
 
-	// Add the horizontal sizer holding the password text box and buttons to the vertical sizer
-	topSizer->Add(passwordAndButtonSizer, 0, wxEXPAND);
+// Add Password text control and button to the horizontal sizer inside the panel
+    passwordSizer->Add(Password_txt, 1, wxEXPAND | wxLEFT | wxRIGHT, 10); // Set proportion to 1
+    passwordSizer->Add(PasswordHider_button, 0, wxALIGN_CENTER_VERTICAL | wxALL, 0);
 
-	// Create Login button
+// Set the sizer for the panel
+    passwordPanel->SetSizer(passwordSizer);
+
+// Add the panel holding the password text box and button to the vertical sizer
+    topSizer->Add(passwordPanel, 0, wxEXPAND);
+
+// Add the vertical sizer holding all contents to the main panel
+    panel_top->SetSizer(topSizer);
+
+
+
+    /***************  LOGIN BUTTON **********************/
 
 	Login_button = new wxButton(panel_top, wxID_ANY, "Login", wxDefaultPosition, wxSize(350, 40), wxNO_BORDER);
-
 	topSizer->Add(Login_button, 0, wxALIGN_CENTER_HORIZONTAL | wxTOP, 10); // Add the button to the sizer
 	Login_button->SetBackgroundColour(wxColour (49,54,63)); // Set the background color of the button
 	Login_button->SetForegroundColour(wxColour(238,238,238)); // Set the text color of the button
 	Login_button->SetFont(MainFont); // Set the font of the button
+
+    /**************************************************/
 
 	// Set the sizer for the top panel
 	panel_top->SetSizer(topSizer);
@@ -151,13 +160,10 @@ MainFrame::MainFrame(const wxString& title, const wxPoint& pos, const wxSize& si
 	// Center the frame on the screen
 	Centre();
 
-	// Bind the Login button event
+
+	// Bind the button event
 	Login_button->Bind(wxEVT_BUTTON, &MainFrame::OnOpenNewWindow, this);
-
-	// Bind focus events for the button
-	PasswordHider_button->Bind(wxEVT_SET_FOCUS, &MainFrame::OnButtonFocus, this);
-	PasswordHider_button->Bind(wxEVT_KILL_FOCUS, &MainFrame::OnButtonBlur, this);
-
+    PasswordHider_button->Bind(wxEVT_BUTTON, &MainFrame::onButtonClick, this);
 
 }
 
@@ -180,17 +186,17 @@ void MainFrame::OnNewWindowClosed(wxCloseEvent& event) {
 }
 /*****************************************************************************************************************/
 
+void MainFrame::onButtonClick(wxCommandEvent &event) {
 
-void MainFrame::OnButtonFocus(wxFocusEvent& event) {
-	// Set the button's background color to your custom color when focused
-	PasswordHider_button->SetBackgroundColour(wxColour(255, 0, 0)); // Change to your custom color
-	PasswordHider_button->Refresh(); // Refresh to apply the color change
-	event.Skip(); // Skip the event to allow default handling
-}
-
-void MainFrame::OnButtonBlur(wxFocusEvent& event) {
-	// Set the button's background color back to its original color when focus is lost
-	PasswordHider_button->SetBackgroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_BTNFACE)); // Change to original color
-	PasswordHider_button->Refresh(); // Refresh to apply the color change
-	event.Skip(); // Skip the event to allow default handling
+    if (isPasswordShowEnabled) {
+        // Remove the wxTE_PASSWORD style
+        Password_txt->SetWindowStyleFlag(Password_txt->GetWindowStyleFlag() & ~wxTE_PASSWORD);
+        PasswordHider_button->SetBitmap(HiddenBitmap);
+        isPasswordShowEnabled = false;
+    } else {
+        // Add the wxTE_PASSWORD style
+        Password_txt->SetWindowStyleFlag(Password_txt->GetWindowStyleFlag() | wxTE_PASSWORD);
+        PasswordHider_button->SetBitmap(normalBitmap);
+        isPasswordShowEnabled = true;
+    }
 }
