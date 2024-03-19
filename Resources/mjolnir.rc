@@ -1,0 +1,15 @@
+/**
+ * Name: mjolnir.rc
+ * Author: Fatlum Hasaj
+ * Date: 15/3/24
+ * Description: This file contains the resource file for the application.  WINDOWS ONLY!!!!
+ * Updated on: 19/3/24
+ * Updater: Fatlum Hasaj
+ */
+
+/*
+NAME 					TYPE                        "PATH"
+*/
+LOGO_PNG                RCDATA                      "images\\logo.png"
+SHOW_PNG				RCDATA						"images\\Buttons\\eye.png"
+HIDDEN_PNG              RCDATA                      "images\\Buttons\\hidden.png"

@@ -19,9 +19,23 @@ public:
 	MainFrame(const wxString& title, const wxPoint &pos, const wxSize &size);
 
 private:
+
+
+    wxPanel* mainPanel;
+    wxBoxSizer* vbox;
+    wxPanel* panel_top;
+    wxBoxSizer* topSizer;
+
+    wxStaticBitmap* imageControl;
+    wxTextCtrl* Username_txt;
+    wxTextCtrl* Password_txt;
+    wxBoxSizer* passwordAndButtonSizer;
+    wxBitmapButton* PasswordHider_button;
+    wxButton* Login_button;
+
     /****** This logic weill be on the backend server to make sure that I have access to log into the system. **********/
     void OnOpenNewWindow(wxCommandEvent& event);
     void OnNewWindowClosed(wxCloseEvent& event);
-
-
+    void OnButtonFocus(wxFocusEvent& event);
+    void OnButtonBlur(wxFocusEvent& event);
 };
