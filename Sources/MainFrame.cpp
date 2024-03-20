@@ -83,6 +83,9 @@ MainFrame::MainFrame(const wxString& title, const wxPoint& pos, const wxSize& si
 	// Add a spacer above the text control to push it down
 	backgroundSizer->Add(0, 12, 0); // Add a 10-pixel spacer
 #endif
+#ifdef __UNIX__
+    backgroundSizer->Add(0, 5, 0); // Add a 10-pixel spacer
+#endif
 
 	// Create UserName text control
 	Username_txt = new wxTextCtrl(backgroundPanel, wxID_ANY, "Enter your username", wxDefaultPosition, wxDefaultSize, wxEXPAND | wxBORDER_NONE);
@@ -116,9 +119,15 @@ MainFrame::MainFrame(const wxString& title, const wxPoint& pos, const wxSize& si
 	wxBoxSizer* passwordPanelSizer = new wxBoxSizer(wxVERTICAL);
 
 	// Add a spacer above the password text control to push it down
-	passwordPanelSizer->AddSpacer(12); // Add a 12-pixel spacer
 
-	// Create a horizontal box sizer for the password text box and the button within the panel
+
+#ifdef __WXMSW__
+    // Windows-specific code
+	// Add a spacer above the text control to push it down
+	passwordPanelSizer->AddSpacer(12); // Add a 12-pixel spacer
+#endif
+
+    // Create a horizontal box sizer for the password text box and the button within the panel
 	wxBoxSizer* passwordSizer = new wxBoxSizer(wxHORIZONTAL);
 
 	// Create Password text control inside the panel
@@ -151,7 +160,7 @@ MainFrame::MainFrame(const wxString& title, const wxPoint& pos, const wxSize& si
 	//passwordSizer->AddSpacer(5); // Adjust the value as needed
 
 	// Add Password button to the sizer with right alignment and no bottom margin
-	passwordSizer->Add(PasswordHider_button, 0, wxEXPAND | wxBOTTOM , 10);
+	passwordSizer->Add(PasswordHider_button, 0, wxEXPAND | wxBOTTOM );
 
 	// Add passwordSizer to passwordPanelSizer
 	passwordPanelSizer->Add(passwordSizer, 0, wxEXPAND);
