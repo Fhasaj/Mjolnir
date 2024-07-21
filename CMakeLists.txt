@@ -27,7 +27,7 @@ file(GLOB SOURCES
 )
 
 # Add executable
-add_executable(Mjolnir ${SOURCES})
+add_executable(Mjolnir ${SOURCES} "Sources/CustomeUI/Button.cpp" "Headers/CustomeUI/Button.h")
 
 # Include headers
 target_include_directories(Mjolnir PRIVATE ${wxWidgets_INCLUDE_DIRS})

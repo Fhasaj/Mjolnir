@@ -19,7 +19,7 @@ MainFrame::MainFrame(const wxString& title, const wxPoint& pos, const wxSize& si
 	: wxFrame(NULL, wxID_ANY, title, pos, size)
 {
 
-	wxFont MainFont(10, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD, false, "Moulpali-Regular");
+	wxFont MainFont(10, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_MAX, wxFONTWEIGHT_BOLD, false, "Moulpali-Regular");
 
 	// Create a panel as the main container
 	mainPanel = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxDefaultSize);
@@ -152,15 +152,15 @@ MainFrame::MainFrame(const wxString& title, const wxPoint& pos, const wxSize& si
 	#endif
 
 	// Create the button inside the panel
-	PasswordHider_button = new wxBitmapButton(passwordPanel, wxID_ANY, normalBitmap, wxDefaultPosition, wxSize(40, 40), wxBU_AUTODRAW | wxBORDER_NONE);
+	PasswordHider_button = new wxBitmapButton(passwordPanel, wxID_ANY, normalBitmap, wxDefaultPosition, wxSize(45, 45), wxBU_AUTODRAW | wxBORDER_NONE);
 	PasswordHider_button->SetBackgroundColour(wxColour(49, 54, 63));
 	PasswordHider_button->SetForegroundColour(wxColour(238, 238, 238));
 
 	// Add a spacer to adjust the vertical alignment of the button
-	//passwordSizer->AddSpacer(5); // Adjust the value as needed
+	passwordSizer->AddSpacer(-1); // Adjust the value as needed
 
 	// Add Password button to the sizer with right alignment and no bottom margin
-	passwordSizer->Add(PasswordHider_button, 0, wxEXPAND | wxBOTTOM );
+	passwordSizer->Add(PasswordHider_button, 0, wxEXPAND | wxRIGHT );
 
 	// Add passwordSizer to passwordPanelSizer
 	passwordPanelSizer->Add(passwordSizer, 0, wxEXPAND);
