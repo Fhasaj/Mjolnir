@@ -38,7 +38,7 @@ target_link_libraries(Mjolnir PRIVATE ${wxWidgets_LIBRARIES})
 ## WINDOWS OS CONFIG OPTIONS
 # Include .rc file in your project for Windows
 if(WIN32)
-    # Globbing for all image files
+    # Globing for all image files
     file(GLOB_RECURSE IMAGE_FILES ${CMAKE_CURRENT_SOURCE_DIR}/Resources/images/*.png
                                    ${CMAKE_CURRENT_SOURCE_DIR}/Resources/images/*.jpg
                                    ${CMAKE_CURRENT_SOURCE_DIR}/Resources/images/*.bmp)

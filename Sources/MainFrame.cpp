@@ -19,7 +19,7 @@ MainFrame::MainFrame(const wxString& title, const wxPoint& pos, const wxSize& si
 	: wxFrame(NULL, wxID_ANY, title, pos, size)
 {
 
-	wxFont MainFont(10, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_MAX, wxFONTWEIGHT_BOLD, false, "Moulpali-Regular");
+	wxFont MainFont(12, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_MAX, wxFONTWEIGHT_BOLD, false, "Lato-Bold");
 
 	// Create a panel as the main container
 	mainPanel = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxDefaultSize);
@@ -100,7 +100,7 @@ MainFrame::MainFrame(const wxString& title, const wxPoint& pos, const wxSize& si
 #endif
 
 	// Add the text control to the sizer with padding to center it horizontally
-	backgroundSizer->Add(Username_txt, 0, wxEXPAND | wxLEFT | wxRIGHT, 10);
+	backgroundSizer->Add(Username_txt, 0, wxEXPAND | wxLEFT | wxRIGHT, 2);
 
 	// Add the background panel to the top sizer
 	topSizer->Add(backgroundPanel, 0, wxEXPAND | wxBOTTOM, 10);
@@ -131,13 +131,13 @@ MainFrame::MainFrame(const wxString& title, const wxPoint& pos, const wxSize& si
 	wxBoxSizer* passwordSizer = new wxBoxSizer(wxHORIZONTAL);
 
 	// Create Password text control inside the panel
-	Password_txt = new wxTextCtrl(passwordPanel, wxID_ANY, "Enter your password", wxDefaultPosition, wxDefaultSize, wxTE_PASSWORD | wxEXPAND | wxBORDER_NONE);
+	Password_txt = new wxTextCtrl(passwordPanel, wxID_ANY, "Enter your password", wxDefaultPosition, wxDefaultSize, wxTE_PASSWORD | wxEXPAND | wxBORDER_NONE | wxTOP);
 	Password_txt->SetFont(MainFont);
 	Password_txt->SetBackgroundColour(wxColour(49, 54, 63));
 	Password_txt->SetForegroundColour(wxColour(238, 238, 238));
 
 	// Add Password text control to the sizer
-	passwordSizer->Add(Password_txt, 1, wxEXPAND | wxLEFT, 10);
+	passwordSizer->Add(Password_txt, -1 , wxEXPAND | wxLEFT | wxRIGHT, 2);
 
 
 	// Load images for different button states
@@ -152,15 +152,15 @@ MainFrame::MainFrame(const wxString& title, const wxPoint& pos, const wxSize& si
 	#endif
 
 	// Create the button inside the panel
-	PasswordHider_button = new wxBitmapButton(passwordPanel, wxID_ANY, normalBitmap, wxDefaultPosition, wxSize(45, 45), wxBU_AUTODRAW | wxBORDER_NONE);
+	PasswordHider_button = new wxBitmapButton(passwordPanel, wxID_ANY, normalBitmap, wxDefaultPosition, wxSize(20,20), wxBU_AUTODRAW | wxBORDER_NONE );
 	PasswordHider_button->SetBackgroundColour(wxColour(49, 54, 63));
 	PasswordHider_button->SetForegroundColour(wxColour(238, 238, 238));
 
 	// Add a spacer to adjust the vertical alignment of the button
-	passwordSizer->AddSpacer(-1); // Adjust the value as needed
+	passwordSizer->AddSpacer(0); // Adjust the value as needed
 
 	// Add Password button to the sizer with right alignment and no bottom margin
-	passwordSizer->Add(PasswordHider_button, 0, wxEXPAND | wxRIGHT );
+	passwordSizer->Add(PasswordHider_button, 0, wxEXPAND);
 
 	// Add passwordSizer to passwordPanelSizer
 	passwordPanelSizer->Add(passwordSizer, 0, wxEXPAND);
@@ -182,6 +182,8 @@ MainFrame::MainFrame(const wxString& title, const wxPoint& pos, const wxSize& si
 	Login_button->SetBackgroundColour(wxColour (49,54,63)); // Set the background color of the button
 	Login_button->SetForegroundColour(wxColour(238,238,238)); // Set the text color of the button
 	Login_button->SetFont(MainFont); // Set the font of the button
+	Login_button->AcceptsFocus(); // Accepts focus when clicked
+	Login_button->SetDefault(); // Set the button as the default button
 
     /**************************************************/
 
@@ -204,15 +206,19 @@ MainFrame::MainFrame(const wxString& title, const wxPoint& pos, const wxSize& si
 
 }
 
-
-
 /****** This logic will be on the backend server to make sure that I have access to log into the system. **********/
 void MainFrame::OnOpenNewWindow(wxCommandEvent& event) {
 
-	SecondWindow* NewWindow = new SecondWindow("Hello", wxDefaultPosition, wxDefaultSize);
-	NewWindow->Bind(wxEVT_CLOSE_WINDOW, &MainFrame::OnNewWindowClosed, this);
-	NewWindow->Show(true);
-	Show(false);
+	if(Username_txt->GetValue() == "admin" && Password_txt->GetValue() == "admin") {
+		SecondWindow* NewWindow = new SecondWindow("Hello", wxDefaultPosition, wxSize(1020,500));
+		NewWindow->Bind(wxEVT_CLOSE_WINDOW, &MainFrame::OnNewWindowClosed, this);
+		NewWindow->Maximize(true);
+		NewWindow->Show(true);
+		Show(false);
+	}
+	else {
+		wxMessageBox("Invalid Username or Password", "Error", wxICON_ERROR);
+	}
 }
 
 void MainFrame::OnNewWindowClosed(wxCloseEvent& event) {
