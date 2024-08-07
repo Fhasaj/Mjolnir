@@ -1,36 +1,70 @@
-﻿cmake_minimum_required(VERSION 3.10)
-project(Mjolnir)
-# Find wxWidgets package
-find_package(wxWidgets REQUIRED COMPONENTS core base)
+cmake_minimum_required(VERSION 3.5)
 
-# Include wxWidgets macros
-include(${wxWidgets_USE_FILE})
+project(project_mjolnir VERSION 0.1 LANGUAGES CXX)
 
-# Source files
-set(SOURCE_FILES
-    Sources/main.cpp
+set(CMAKE_AUTOUIC ON)
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTORCC ON)
+
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets)
+find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
+
+set(PROJECT_SOURCES
+        main.cpp
+        Authentication.cpp
+        Authentication.h
+        Authentication.ui
 )
 
-# Add executable
-add_executable(Mjolnir ${SOURCE_FILES})
-
-# Include headers
-target_include_directories(Mjolnir PRIVATE ${wxWidgets_INCLUDE_DIRS})
-
-# Link against wxWidgets libraries
-target_link_libraries(Mjolnir PRIVATE ${wxWidgets_LIBRARIES})
-
-## WINDOWS OS CONFIG OPTIONS
-# Include .rc file in your project for Windows
-if(WIN32)
-    set(RESOURCE_FILE ${CMAKE_CURRENT_SOURCE_DIR}/Resources/sample.res)
-    target_sources(Mjolnir PRIVATE ${RESOURCE_FILE})
-    set_source_files_properties(${RESOURCE_FILE} PROPERTIES VS_TOOL_OVERRIDE "Resource Compiler")
-    set_target_properties(Mjolnir PROPERTIES WIN32_EXECUTABLE TRUE)
+if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
+    qt_add_executable(project_mjolnir
+        MANUAL_FINALIZATION
+        ${PROJECT_SOURCES}
+    )
+# Define target properties for Android with Qt 6 as:
+#    set_property(TARGET project_mjolnir APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
+#                 ${CMAKE_CURRENT_SOURCE_DIR}/android)
+# For more information, see https://doc.qt.io/qt-6/qt-add-executable.html#target-creation
+else()
+    if(ANDROID)
+        add_library(project_mjolnir SHARED
+            ${PROJECT_SOURCES}
+        )
+# Define properties for Android with Qt 5 after find_package() calls as:
+#    set(ANDROID_PACKAGE_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/android")
+    else()
+        add_executable(project_mjolnir
+            ${PROJECT_SOURCES}
+        )
+    endif()
 endif()
 
-# Set the resource file as a custom command to be compiled by Visual Studio
-if(WIN32)
-    set_source_files_properties(${RESOURCE_FILE} PROPERTIES VS_TOOL_OVERRIDE "Resource Compiler")
-endif()
+target_link_libraries(project_mjolnir PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
 
+# Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
+# If you are developing for iOS or macOS you should consider setting an
+# explicit, fixed bundle identifier manually though.
+if(${QT_VERSION} VERSION_LESS 6.1.0)
+  set(BUNDLE_ID_OPTION MACOSX_BUNDLE_GUI_IDENTIFIER com.example.project_mjolnir)
+endif()
+set_target_properties(project_mjolnir PROPERTIES
+    ${BUNDLE_ID_OPTION}
+    MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
+    MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
+    MACOSX_BUNDLE TRUE
+    WIN32_EXECUTABLE TRUE
+)
+
+include(GNUInstallDirs)
+install(TARGETS project_mjolnir
+    BUNDLE DESTINATION .
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+)
+
+if(QT_VERSION_MAJOR EQUAL 6)
+    qt_finalize_executable(project_mjolnir)
+endif()
