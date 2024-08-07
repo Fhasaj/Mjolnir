@@ -1,8 +1,0 @@
-C:/Users/Fatlum/Documents/Coding/C++/project_mjolnir/build/Desktop_Qt_6_2_3_MSVC2019_64bit-Debug/CMakeFiles/project_mjolnir.dir
-C:/Users/Fatlum/Documents/Coding/C++/project_mjolnir/build/Desktop_Qt_6_2_3_MSVC2019_64bit-Debug/CMakeFiles/edit_cache.dir
-C:/Users/Fatlum/Documents/Coding/C++/project_mjolnir/build/Desktop_Qt_6_2_3_MSVC2019_64bit-Debug/CMakeFiles/rebuild_cache.dir
-C:/Users/Fatlum/Documents/Coding/C++/project_mjolnir/build/Desktop_Qt_6_2_3_MSVC2019_64bit-Debug/CMakeFiles/list_install_components.dir
-C:/Users/Fatlum/Documents/Coding/C++/project_mjolnir/build/Desktop_Qt_6_2_3_MSVC2019_64bit-Debug/CMakeFiles/install.dir
-C:/Users/Fatlum/Documents/Coding/C++/project_mjolnir/build/Desktop_Qt_6_2_3_MSVC2019_64bit-Debug/CMakeFiles/install/local.dir
-C:/Users/Fatlum/Documents/Coding/C++/project_mjolnir/build/Desktop_Qt_6_2_3_MSVC2019_64bit-Debug/CMakeFiles/project_mjolnir_autogen_timestamp_deps.dir
-C:/Users/Fatlum/Documents/Coding/C++/project_mjolnir/build/Desktop_Qt_6_2_3_MSVC2019_64bit-Debug/CMakeFiles/project_mjolnir_autogen.dir
