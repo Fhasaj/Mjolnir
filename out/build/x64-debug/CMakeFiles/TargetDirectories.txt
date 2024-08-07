@@ -1,8 +1,0 @@
-C:/Users/Fatlum/Documents/Coding/C++/project_mjolnir/out/build/x64-debug/CMakeFiles/project_mjolnir.dir
-C:/Users/Fatlum/Documents/Coding/C++/project_mjolnir/out/build/x64-debug/CMakeFiles/edit_cache.dir
-C:/Users/Fatlum/Documents/Coding/C++/project_mjolnir/out/build/x64-debug/CMakeFiles/rebuild_cache.dir
-C:/Users/Fatlum/Documents/Coding/C++/project_mjolnir/out/build/x64-debug/CMakeFiles/list_install_components.dir
-C:/Users/Fatlum/Documents/Coding/C++/project_mjolnir/out/build/x64-debug/CMakeFiles/install.dir
-C:/Users/Fatlum/Documents/Coding/C++/project_mjolnir/out/build/x64-debug/CMakeFiles/install/local.dir
-C:/Users/Fatlum/Documents/Coding/C++/project_mjolnir/out/build/x64-debug/CMakeFiles/project_mjolnir_autogen_timestamp_deps.dir
-C:/Users/Fatlum/Documents/Coding/C++/project_mjolnir/out/build/x64-debug/CMakeFiles/project_mjolnir_autogen.dir

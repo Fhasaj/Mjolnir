@@ -80,6 +80,7 @@ CMakeLists.txt.user*
 # Build directories
 # -----------------
 build/
+out/
 
 # CMake generated files
 # ---------------------
