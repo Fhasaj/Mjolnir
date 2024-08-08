@@ -14,9 +14,9 @@ find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
 
 set(PROJECT_SOURCES
         main.cpp
-        Authentication.cpp
-        Authentication.h
-        Authentication.ui
+        sourceFiles/Authentication.cpp
+        headerFiles/Authentication.h
+        sourceFiles/Authentication.ui
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

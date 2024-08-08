@@ -1,0 +1,79 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-Debug-4fb5d89f035e1a1eeca1.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.5"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "project_mjolnir",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "project_mjolnir::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-project_mjolnir-Debug-f032fd75d5a35439a8da.json",
+					"name" : "project_mjolnir",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "project_mjolnir_autogen::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-project_mjolnir_autogen-Debug-31ac8854e32e7f6d02da.json",
+					"name" : "project_mjolnir_autogen",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "project_mjolnir_autogen_timestamp_deps::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-project_mjolnir_autogen_timestamp_deps-Debug-85e81dbc5733272c710b.json",
+					"name" : "project_mjolnir_autogen_timestamp_deps",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/home/fhasa/Documents/C++/Mjolnir/cmake-build-debug",
+		"source" : "/home/fhasa/Documents/C++/Mjolnir"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 7
+	}
+}

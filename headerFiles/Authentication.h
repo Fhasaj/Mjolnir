@@ -18,4 +18,5 @@ public:
 
 private:
     Ui::Authentication *ui;
+
 };

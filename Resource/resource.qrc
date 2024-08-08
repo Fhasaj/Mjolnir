@@ -1,0 +1,13 @@
+<RCC>
+    <qresource prefix="/images">
+        <file>images/logo.jpg</file>
+        <file>images/Buttons/hidden_White.png</file>
+        <file>images/Buttons/hidden.png</file>
+        <file>images/Buttons/eye.png</file>
+        <file>images/Buttons/eye_white.png</file>
+    </qresource>
+    <qresource prefix="/font">
+        <file>Fonts/Moulpali-Regular.ttf</file>
+        <file>Fonts/Yellow Rocks.ttf</file>
+    </qresource>
+</RCC>
