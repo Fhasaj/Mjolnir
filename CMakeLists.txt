@@ -24,6 +24,8 @@ include(${wxWidgets_USE_FILE})
 file(GLOB SOURCES
     Headers/*.h
     Sources/*.cpp
+    Headers/CustomeUI/*.h
+    Sources/CustomeUI/*.cpp
 )
 
 # Add executable

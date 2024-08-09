@@ -4,6 +4,13 @@
 #pragma once
 
 #include <wx/wx.h>
+#include <wx/sizer.h>
+#include <wx/splitter.h>
+
+#include <wx/bmpcbox.h>
+
+#include "../Headers/CustomeUI/DropdownButton.h"
+
 
 class SecondWindow : public wxFrame {
 
@@ -14,10 +21,38 @@ public:
 
 private:
 
-    wxPanel* panel;
-	wxStaticText* label;
-	wxBoxSizer* sizer;
-	wxButton* closeButton;
-	wxButton* closeButton2;
+  wxMenu *mainMenu;
+  wxMenu *EditMenu;
+  wxMenu *ViewMenu;
+  wxMenu *AccountMenu;
+  wxMenu *ToolsMenu;
+  wxMenu *ReportsMenu;
+  wxMenu *WindowMenu;
+  wxMenu *HelpMenu;
+  wxMenuBar *menuBar;
 
+  wxPanel* TopPanel;
+
+  wxSplitterWindow* splitter;
+
+  wxPanel* left_panel;
+  wxPanel* right_panel;
+  wxBoxSizer* sizer;
+  wxBoxSizer* main_sizer;
+
+
+  //TESTING
+  wxButton* TestButton;
+  wxChoice* TestChoice;
+  wxBitmapComboBox* TestBitmapCombo;
+
+  DropdownButton* TestDropdownButton;
+  void OnMenuItemSelected(wxCommandEvent& event);
+
+
+};
+
+enum
+{
+    ID_CloseButton = wxID_HIGHEST + 1
 };
