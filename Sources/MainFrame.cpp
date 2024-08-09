@@ -18,8 +18,8 @@
 MainFrame::MainFrame(const wxString& title, const wxPoint& pos, const wxSize& size)
 	: wxFrame(NULL, wxID_ANY, title, pos, size)
 {
-
-	wxFont MainFont(12, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_MAX, wxFONTWEIGHT_BOLD, false, "Lato-Bold");
+	//Font for the text controls
+	wxFont MainFont(12, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD, false, "Moulpali-Regular", wxFONTENCODING_SYSTEM);
 
 	// Create a panel as the main container
 	mainPanel = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxDefaultSize);
@@ -34,6 +34,7 @@ MainFrame::MainFrame(const wxString& title, const wxPoint& pos, const wxSize& si
 	// Create a vertical box sizer for the top panel
 	wxBoxSizer* topSizer = new wxBoxSizer(wxVERTICAL);
 
+	//Loading the image or resource
 #if defined(__WXMSW__)
 	// If compiling for Windows, load images from .rc file
 
@@ -88,10 +89,13 @@ MainFrame::MainFrame(const wxString& title, const wxPoint& pos, const wxSize& si
 #endif
 
 	// Create UserName text control
-	Username_txt = new wxTextCtrl(backgroundPanel, wxID_ANY, "Enter your username", wxDefaultPosition, wxDefaultSize, wxEXPAND | wxBORDER_NONE);
+	Username_txt = new wxTextCtrl(backgroundPanel, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxEXPAND | wxBORDER_NONE);
 	Username_txt->SetFont(MainFont);
 	Username_txt->SetBackgroundColour(wxColour(49, 54, 63)); // Set the background color of the text box
 	Username_txt->SetForegroundColour(wxColour(238, 238, 238)); // Set the text color of the text box
+
+	usernamePlaceHolderTxt = "Username"; // Set the placeholder text
+	SetPlaceholderText(Username_txt, usernamePlaceHolderTxt);
 
 #ifdef __WXMSW__
 	// Windows-specific code
@@ -124,23 +128,27 @@ MainFrame::MainFrame(const wxString& title, const wxPoint& pos, const wxSize& si
 #ifdef __WXMSW__
     // Windows-specific code
 	// Add a spacer above the text control to push it down
-	passwordPanelSizer->AddSpacer(12); // Add a 12-pixel spacer
+	passwordPanelSizer->AddSpacer(10); // Add a 12-pixel spacer
 #endif
 
     // Create a horizontal box sizer for the password text box and the button within the panel
 	wxBoxSizer* passwordSizer = new wxBoxSizer(wxHORIZONTAL);
 
 	// Create Password text control inside the panel
-	Password_txt = new wxTextCtrl(passwordPanel, wxID_ANY, "Enter your password", wxDefaultPosition, wxDefaultSize, wxTE_PASSWORD | wxEXPAND | wxBORDER_NONE | wxTOP);
+	Password_txt = new wxTextCtrl(passwordPanel, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxTE_PASSWORD | wxEXPAND | wxBORDER_NONE | wxTOP);
 	Password_txt->SetFont(MainFont);
 	Password_txt->SetBackgroundColour(wxColour(49, 54, 63));
 	Password_txt->SetForegroundColour(wxColour(238, 238, 238));
 
+	passwordPlaceHolderTxt = "Password"; // Set the placeholder text
+	SetPlaceholderText(Password_txt, passwordPlaceHolderTxt);
+
+
 	// Add Password text control to the sizer
-	passwordSizer->Add(Password_txt, -1 , wxEXPAND | wxLEFT | wxRIGHT, 2);
+	passwordSizer->Add(Password_txt, -1 , wxEXPAND | wxLEFT | wxRIGHT, 1);
 
 
-	// Load images for different button states
+	// Load images for different button states from resources or file system based on the platform
 	#if defined(__WXMSW__)
 	// If compiling for Windows, load images from .rc file
 		normalBitmap = wxBitmap(wxT("SHOW_WHITE_PNG"), wxBITMAP_TYPE_PNG_RESOURCE);
@@ -153,14 +161,14 @@ MainFrame::MainFrame(const wxString& title, const wxPoint& pos, const wxSize& si
 
 	// Create the button inside the panel
 	PasswordHider_button = new wxBitmapButton(passwordPanel, wxID_ANY, normalBitmap, wxDefaultPosition, wxSize(20,20), wxBU_AUTODRAW | wxBORDER_NONE );
-	PasswordHider_button->SetBackgroundColour(wxColour(49, 54, 63));
-	PasswordHider_button->SetForegroundColour(wxColour(238, 238, 238));
+	PasswordHider_button->SetBackgroundColour(wxColour(49, 54, 63)); // Set the background color of the button 
+	PasswordHider_button->SetForegroundColour(wxColour(238, 238, 238)); // Set the text color of the button
 
 	// Add a spacer to adjust the vertical alignment of the button
 	passwordSizer->AddSpacer(0); // Adjust the value as needed
 
-	// Add Password button to the sizer with right alignment and no bottom margin
-	passwordSizer->Add(PasswordHider_button, 0, wxEXPAND);
+	// Add Password button to the sizer with right alignment and a 10-pixel right margin
+	passwordSizer->Add(PasswordHider_button, 0, wxEXPAND | wxRIGHT, 10);
 
 	// Add passwordSizer to passwordPanelSizer
 	passwordPanelSizer->Add(passwordSizer, 0, wxEXPAND);
@@ -181,6 +189,7 @@ MainFrame::MainFrame(const wxString& title, const wxPoint& pos, const wxSize& si
 	topSizer->Add(Login_button, 0, wxALIGN_CENTER_HORIZONTAL | wxTOP, 10); // Add the button to the sizer
 	Login_button->SetBackgroundColour(wxColour (49,54,63)); // Set the background color of the button
 	Login_button->SetForegroundColour(wxColour(238,238,238)); // Set the text color of the button
+
 	Login_button->SetFont(MainFont); // Set the font of the button
 	Login_button->AcceptsFocus(); // Accepts focus when clicked
 	Login_button->SetDefault(); // Set the button as the default button
@@ -199,10 +208,12 @@ MainFrame::MainFrame(const wxString& title, const wxPoint& pos, const wxSize& si
 	// Center the frame on the screen
 	Centre();
 
-
 	// Bind the button event
-	Login_button->Bind(wxEVT_BUTTON, &MainFrame::OnOpenNewWindow, this);
+	//Login_button->Bind(wxEVT_BUTTON, &MainFrame::OnOpenNewWindow, this);
     PasswordHider_button->Bind(wxEVT_BUTTON, &MainFrame::onButtonClick, this);
+	Login_button->Bind(wxEVT_ENTER_WINDOW, &MainFrame::OnMouseEnter, this);
+	Login_button->Bind(wxEVT_LEAVE_WINDOW, &MainFrame::OnMouseLeave, this);
+	Login_button->Bind(wxEVT_BUTTON, &MainFrame::OnLoginButtonClick, this);
 
 }
 
@@ -252,4 +263,73 @@ void MainFrame::onButtonClick(wxCommandEvent& event) {
 	// Toggle the flag and update the button bitmap
 	isPasswordShowEnabled = !isPasswordShowEnabled;
 	PasswordHider_button->SetBitmap(isPasswordShowEnabled ? normalBitmap : HiddenBitmap);
+}
+
+void MainFrame::OnMouseEnter(wxMouseEvent& event)
+{
+	Login_button->SetBackgroundColour(wxColour(158, 157, 157)); // Example color
+	Login_button->SetForegroundColour(wxColour(255, 255, 255)); // Example color
+	Login_button->Refresh();
+}
+
+void MainFrame::OnMouseLeave(wxMouseEvent& event)
+{
+	Login_button->SetBackgroundColour(wxColour(49, 54, 63)); // Set the background color of the button
+	Login_button->SetForegroundColour(wxColour(238, 238, 238)); // Set the text color of the button
+	Login_button->Refresh();
+}
+
+void MainFrame::OnLoginButtonClick(wxCommandEvent& event)
+{
+	Login_button->SetBackgroundColour(wxColour(158, 157, 157)); // Example color
+	Login_button->SetForegroundColour(wxColour(255, 255, 255)); // Example color
+	// Refresh the button to apply the color changes
+	Login_button->Refresh();
+	OnOpenNewWindow(event);
+}
+
+void MainFrame::SetPlaceholderText(wxTextCtrl* textCtrl, const wxString& placeholderText)
+{
+	if(textCtrl->IsEmpty())
+	{
+		textCtrl->ChangeValue(placeholderText);
+		textCtrl->SetForegroundColour(wxColour(150, 150, 150));
+	}
+		textCtrl->Refresh();
+}
+
+void MainFrame::ClearPlaceholderText(wxTextCtrl* textCtrl, const wxString& placeholderText)
+{
+	if(textCtrl->GetValue() == placeholderText)
+	{
+		textCtrl->ChangeValue("");
+		textCtrl->SetForegroundColour(wxColour(238, 238, 238));
+	}
+		textCtrl->Refresh();
+}
+
+void MainFrame::OnTextFocus(wxFocusEvent& event)
+{
+	wxTextCtrl* textCtrl = dynamic_cast<wxTextCtrl*>(event.GetEventObject());
+	if(textCtrl == Username_txt)
+	{
+		ClearPlaceholderText(Username_txt, usernamePlaceHolderTxt);
+	}
+	else if (textCtrl == Password_txt)
+	{
+		ClearPlaceholderText(Password_txt, passwordPlaceHolderTxt);
+	}
+}
+
+void MainFrame::OnTextKillFocus(wxFocusEvent& event)
+{
+	wxTextCtrl* textCtrl = dynamic_cast<wxTextCtrl*>(event.GetEventObject());
+	if(textCtrl->IsEmpty())
+	{
+		SetPlaceholderText(Username_txt, usernamePlaceHolderTxt);
+	}
+	else if (textCtrl->IsEmpty())
+	{
+		SetPlaceholderText(Password_txt, passwordPlaceHolderTxt);
+	}
 }

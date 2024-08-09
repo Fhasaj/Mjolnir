@@ -11,6 +11,7 @@
 #pragma once
 
 #include <wx/wx.h>
+#include <string>
 #include "../Headers/SecondWindow.h"
 
 class MainFrame : public wxFrame
@@ -39,9 +40,22 @@ private:
     wxBitmap HiddenBitmap;
 
     bool isPasswordShowEnabled = true;
+    std::string usernamePlaceHolderTxt;
+    std::string passwordPlaceHolderTxt;
 
     /****** This logic weill be on the backend server to make sure that I have access to log into the system. **********/
     void OnOpenNewWindow(wxCommandEvent& event);
     void OnNewWindowClosed(wxCloseEvent& event);
     void onButtonClick(wxCommandEvent& event);
+
+    //Function to change the background color of the button on hover and clicked
+    void OnMouseEnter(wxMouseEvent& event);
+    void OnMouseLeave(wxMouseEvent& event);
+    void OnLoginButtonClick(wxCommandEvent& event);
+
+    // Custom TextCtrl attributes to show placeholder text
+    void SetPlaceholderText(wxTextCtrl* textCtrl, const wxString& placeholderText);
+    void ClearPlaceholderText(wxTextCtrl* textCtrl, const wxString& placeholderText);
+    void OnTextFocus(wxFocusEvent& event);
+    void OnTextKillFocus(wxFocusEvent& event);
 };
