@@ -85,7 +85,7 @@ MainFrame::MainFrame(const wxString& title, const wxPoint& pos, const wxSize& si
 	backgroundSizer->Add(0, 12, 0); // Add a 10-pixel spacer
 #endif
 #ifdef __UNIX__
-    backgroundSizer->Add(0, 5, 0); // Add a 10-pixel spacer
+    backgroundSizer->Add(10, 10, 0); // Add a 10-pixel spacer
 #endif
 
 	// Create UserName text control
@@ -129,6 +129,9 @@ MainFrame::MainFrame(const wxString& title, const wxPoint& pos, const wxSize& si
     // Windows-specific code
 	// Add a spacer above the text control to push it down
 	passwordPanelSizer->AddSpacer(10); // Add a 12-pixel spacer
+#endif
+#ifdef __UNIX__
+	passwordPanelSizer->AddSpacer(10);
 #endif
 
     // Create a horizontal box sizer for the password text box and the button within the panel
@@ -293,7 +296,6 @@ void MainFrame::SetPlaceholderText(wxTextCtrl* textCtrl, const wxString& placeho
 	if(textCtrl->IsEmpty())
 	{
 		textCtrl->ChangeValue(placeholderText);
-		textCtrl->SetForegroundColour(wxColour(150, 150, 150));
 	}
 		textCtrl->Refresh();
 }
@@ -303,7 +305,6 @@ void MainFrame::ClearPlaceholderText(wxTextCtrl* textCtrl, const wxString& place
 	if(textCtrl->GetValue() == placeholderText)
 	{
 		textCtrl->ChangeValue("");
-		textCtrl->SetForegroundColour(wxColour(238, 238, 238));
 	}
 		textCtrl->Refresh();
 }
