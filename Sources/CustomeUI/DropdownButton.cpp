@@ -15,8 +15,8 @@ DropdownButton::DropdownButton(wxWindow* parent, wxWindowID id, const wxString& 
 	* The Button will be un-styled and I will create the default style here Not sure if I want to allow for the style to be changed
 	* This can be done by passing in a style parameter and setting the style of the button to that style i.e the colour, font, mouse hover, mouse leave
 	*/
-	dropdownButton = new wxButton(this, wxID_ANY, label, wxDefaultPosition, size, wxNO_BORDER);
-						//Reference, ID,   Label, Position,          Size,         Style
+	dropdownButton = new wxButton(this, id, label, wxDefaultPosition, size, wxNO_BORDER);
+	//Reference, ID,   Label, Position,          Size,         Style
 
 	dropdownButton->SetBackgroundColour(Colour1); // Set the background color of the button
 	dropdownButton->SetForegroundColour(Colour2); // Set the text color of the button
@@ -25,7 +25,7 @@ DropdownButton::DropdownButton(wxWindow* parent, wxWindowID id, const wxString& 
 	dropdownmenu = new wxMenu;
 
 	MenuSizer = new wxBoxSizer(wxVERTICAL);
-	MenuSizer->Add(dropdownButton,0, wxALL);
+	MenuSizer->Add(dropdownButton, 0, wxALL);
 	MenuSizer->GetPosition();
 	SetSizer(MenuSizer);
 

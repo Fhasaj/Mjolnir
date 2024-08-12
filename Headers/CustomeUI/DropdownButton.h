@@ -13,8 +13,8 @@ public:
 	* @param label The text to be displayed on the button
 	* 
 	*/
-	DropdownButton(wxWindow* parent, wxWindowID id, 
-					const wxString& label, 
+	DropdownButton(wxWindow* parent, wxWindowID id = wxID_ANY, 
+					const wxString& label = "DropDown Button",
 					const wxSize& size = wxDefaultSize,
 					const wxColour& Colour1 = wxColour(49, 54, 63),
 					const wxColour& Colour2 = wxColour(238, 238, 238)

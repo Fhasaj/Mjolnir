@@ -61,9 +61,7 @@ SecondWindow::SecondWindow(const wxString& title, const wxPoint& pos, const wxSi
 	TopPanel->SetBackgroundColour(wxColour(100, 100, 200));
 
 	//!!!! TEST BUTTON TO BE REMOVED AFTER TESTING IS DONE !!!!!
-	TestButton = new wxButton(TopPanel, ID_CloseButton, "Close", wxDefaultPosition, wxDefaultSize, 0);
-
-	wxBoxSizer* TopSizer = new wxBoxSizer(wxHORIZONTAL);
+	//TestButton = new wxButton(TopPanel, ID_CloseButton, "Close", wxDefaultPosition, wxDefaultSize, 0);
 
 	//wxArrayString TestChoicesText;
 	//TestChoicesText.Add("My Account");
@@ -85,17 +83,24 @@ SecondWindow::SecondWindow(const wxString& title, const wxPoint& pos, const wxSi
 
 	//TestBitmapCombo->SetSelection(0);
 
+	wxBoxSizer* TopSizer = new wxBoxSizer(wxHORIZONTAL);
+
+	//Custom Button for
+	TestCustomButton = new CustomedButton(TopPanel, ID_TestButton, "Close", wxDefaultPosition, wxSize(350, 40));
+
+	//Custom Dropdown Button
 	TestDropdownButton = new DropdownButton(TopPanel, wxID_ANY, "Account", wxSize(350, 40), wxColour(238, 238, 238), wxColour(49, 54, 63));
-	TestDropdownButton->AddMenuItem("My Account", wxID_HIGHEST + 1);
+	TestDropdownButton->AddMenuItem("My Account", wxID_HIGHEST + 1); //Adding the menu items to the dropdown button
 	TestDropdownButton->AddMenuItem("Settings", wxID_HIGHEST + 2);
+	TestDropdownButton->AddMenuItem("Sign Out", wxID_HIGHEST + 3);
 
 
-	TopSizer->Add(TestButton, 0, wxALL, 5);
-	TopSizer->AddStretchSpacer(1);
+	TopSizer->Add(TestCustomButton, 0, wxALL, 5); //Adding the custom button to the sizer
+	TopSizer->AddStretchSpacer(1); // Adding a stretch spacer to the sizer
 	//TopSizer->Add(TestChoice, 0, wxALL, 5);
 	//TopSizer->Add(TestBitmapCombo, 0, wxALL, 5);
-	TopSizer->Add(TestDropdownButton, 0, wxALL, 5);
-	TopPanel->SetSizer(TopSizer);
+	TopSizer->Add(TestDropdownButton, 0, wxALL, 5); //Adding the custom dropdown button to the sizer
+	TopPanel->SetSizer(TopSizer); //Setting the sizer to the top panel
 	
 
 	//SPLITTER WINDOW
@@ -121,12 +126,12 @@ SecondWindow::SecondWindow(const wxString& title, const wxPoint& pos, const wxSi
 
 	// EVENT HANDLERS FOR THE SECOND WINDOW
 	Bind(wxEVT_CLOSE_WINDOW, &SecondWindow::OnClose, this);
-	//Bind(wxEVT_BUTTON, &SecondWindow::OnCloseButton, this, closeButton->GetId());
 
 
 	//BINDING THE MENU ITEMS
 	Bind(wxEVT_MENU, &SecondWindow::OnMenuItemSelected, this, wxID_HIGHEST + 1);
 	Bind(wxEVT_MENU, &SecondWindow::OnMenuItemSelected, this, wxID_HIGHEST + 2);
+	Bind(wxEVT_BUTTON, &SecondWindow::OnCloseButton, this, ID_TestButton);
 }
 
 void SecondWindow::OnClose(wxCloseEvent& event) {

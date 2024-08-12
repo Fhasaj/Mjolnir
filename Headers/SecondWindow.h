@@ -10,6 +10,7 @@
 #include <wx/bmpcbox.h>
 
 #include "../Headers/CustomeUI/DropdownButton.h"
+#include "../Headers/CustomeUI/Button.h"
 
 
 class SecondWindow : public wxFrame {
@@ -46,13 +47,18 @@ private:
   wxChoice* TestChoice;
   wxBitmapComboBox* TestBitmapCombo;
 
+
+  //Custom Button for testing
   DropdownButton* TestDropdownButton;
   void OnMenuItemSelected(wxCommandEvent& event);
 
+  CustomedButton* TestCustomButton;
+  void OnCustomButtonClicked(wxCommandEvent& event);
 
 };
 
 enum
 {
-    ID_CloseButton = wxID_HIGHEST + 1
+    ID_CloseButton = wxID_HIGHEST + 1,
+    ID_TestButton = 10,
 };
