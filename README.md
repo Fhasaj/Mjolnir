@@ -1,6 +1,6 @@
-# Mjolnir Inventory Management System
+# Project Mercury
 
-Mjolnir is a powerful inventory management system written in C++ with wxWidgets for the graphical user interface (GUI), MySQL for database management, and planned integration with Python for extended functionality.
+Project Mercury is a powerful inventory management system written in C++ with qt for the graphical user interface (GUI), MySQL for database management, and planned integration with Python for extended functionality.
 
 ## Features
 
